@@ -2,623 +2,210 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#7a1b2d">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thailand Training Convention</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --maroon-deep: #6E1423;
-  --maroon-mid: #4A0F1C;
-  --maroon-night: #230811;
-  --red-signal: #E63946;
-  --red-error: #A11A2B;
-  --grey-warm: #5B534F;
-  --ink: #241016;
-  --white: #FFFFFF;
-  --success: #2A9D6F;
-  --gold-deep: #B8862E;
-  --gold: #E3B54F;
-  --gold-light: #F6DFA0;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+:root{
+  --maroon-deep:#6E1423;
+  --maroon-mid:#4A0F1C;
+  --maroon-night:#230811;
+  --red-signal:#E63946;
+  --red-error:#A11A2B;
+  --grey-warm:#5B534F;
+  --ink:#241016;
+  --white:#FFFFFF;
+  --success:#2A9D6F;
+  --gold-deep:#B8862E;
+  --gold:#E3B54F;
+  --gold-light:#F6DFA0;
+  --font-display:'Instrument Serif', Georgia, serif;
+  --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  position:relative;
+  min-height:100vh;
+  overflow-x:hidden;
+  font-family:var(--font-body);
+  background-color:var(--maroon-night);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.bg-photo{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--maroon-night);}
+.bg-photo img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;}
+.bg-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(74,15,28,.08) 0%, rgba(35,8,17,.12) 50%, rgba(20,4,9,.20) 100%);
 }
 
-html,
-body {
-  min-height: 100%;
+/* celebratory confetti, one burst on load */
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
+.confetti span{position:absolute;top:-8%;width:7px;height:13px;opacity:0;border-radius:1px;animation:confettiFall 3.4s ease-in forwards;}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1;}85%{opacity:1;}100%{transform:translateY(72vh) rotate(340deg);opacity:0;}}
+.confetti span:nth-child(1){left:6%;background:var(--red-signal);animation-delay:.10s;}
+.confetti span:nth-child(2){left:14%;background:var(--white);animation-delay:.50s;}
+.confetti span:nth-child(3){left:22%;background:var(--grey-warm);animation-delay:.15s;}
+.confetti span:nth-child(4){left:30%;background:var(--white);animation-delay:.65s;}
+.confetti span:nth-child(5){left:38%;background:var(--red-signal);animation-delay:.30s;}
+.confetti span:nth-child(6){left:46%;background:var(--white);animation-delay:.05s;}
+.confetti span:nth-child(7){left:54%;background:var(--grey-warm);animation-delay:.45s;}
+.confetti span:nth-child(8){left:62%;background:var(--white);animation-delay:.20s;}
+.confetti span:nth-child(9){left:70%;background:var(--red-signal);animation-delay:.55s;}
+.confetti span:nth-child(10){left:78%;background:var(--white);animation-delay:.35s;}
+.confetti span:nth-child(11){left:86%;background:var(--grey-warm);animation-delay:.10s;}
+.confetti span:nth-child(12){left:94%;background:var(--white);animation-delay:.50s;}
+.confetti span:nth-child(13){left:50%;background:var(--red-signal);animation-delay:.60s;}
+.confetti span:nth-child(14){left:18%;background:var(--white);animation-delay:.40s;}
+
+/* layout */
+.stage{position:relative;z-index:2;max-width:560px;margin:0 auto;padding:43vh 24px 44px;text-align:center;}
+
+.subcopy{
+  font-family:var(--font-body);font-size:1rem;line-height:1.6;color:var(--gold-light);
+  max-width:420px;margin:0 auto;animation:rise .8s ease both;
 }
 
-body {
-  position: relative;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: var(--font-body);
-  background: var(--maroon-night);
+@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* card */
+.card{
+  position:relative;z-index:1;background:var(--white);border-radius:18px;
+  padding:34px 30px;margin:28px auto 0;max-width:400px;text-align:center;
+  box-shadow:0 24px 55px rgba(15,3,8,.5);
+  animation:rise .9s .3s ease both;
+}
+.badge{
+  position:absolute;top:-18px;right:-14px;width:52px;height:52px;border-radius:50%;
+  background:var(--red-signal);border:2px solid rgba(227,181,79,.7);display:flex;align-items:center;justify-content:center;
+  font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.3);
+  animation:badgeIn .5s .8s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes badgeIn{0%{transform:scale(0);opacity:0;}100%{transform:scale(1);opacity:1;}}
+
+.input-wrap{
+  padding:2px;border-radius:12px;margin-bottom:16px;
+  background:linear-gradient(135deg, var(--gold-deep), var(--gold-light), var(--gold-deep));
+}
+input{
+  display:block;width:100%;padding:14px 16px;font-size:16px;font-family:var(--font-body);color:var(--ink);
+  border-radius:10px;border:none;outline:none;text-align:center;
+  background:#FFFAF0;
+  transition:box-shadow .2s ease;
+}
+input:focus{box-shadow:0 0 0 4px rgba(212,175,55,.28);}
+input::placeholder{color:#A68A5B;}
+
+button{
+  width:100%;padding:15px;border:1px solid rgba(227,181,79,.55);border-radius:10px;cursor:pointer;
+  background:linear-gradient(135deg, var(--maroon-deep), #8A1B2E);color:var(--gold-light);
+  font-family:var(--font-body);font-weight:600;font-size:16px;letter-spacing:.03em;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+button:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(110,20,35,.35);}
+button:active{transform:translateY(0);}
+button:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
+button:focus-visible, input:focus-visible{outline:2px solid var(--red-signal);outline-offset:2px;}
+
+.loader{
+  display:none;margin-top:16px;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-body);font-size:14px;color:var(--grey-warm);
+}
+.loader.show{display:flex;}
+.spinner{
+  width:14px;height:14px;border:2px solid rgba(110,20,35,.18);border-top-color:var(--maroon-deep);
+  border-radius:50%;display:inline-block;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+#msg{margin-top:14px;text-align:center;font-weight:600;font-family:var(--font-body);font-size:15px;}
+.success{color:var(--success);}
+.error{color:var(--red-error);}
+
+.footer-note{margin-top:22px;font-family:var(--font-body);font-size:14px;font-weight:500;color:var(--gold-light);animation:rise .9s .45s ease both;}
+
+@media (max-width:480px){
+  .stage{padding-left:18px;padding-right:18px;padding-bottom:32px;}
+  .card{padding:28px 22px;}
 }
 
-/* Background image */
-
-.bg-photo {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  background: var(--maroon-night);
-}
-
-.bg-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-}
-
-.bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(74,15,28,.08) 0%,
-    rgba(35,8,17,.12) 50%,
-    rgba(20,4,9,.20) 100%
-  );
-}
-
-/* Confetti */
-
-.confetti {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.confetti span {
-  position: absolute;
-  top: -8%;
-  width: 7px;
-  height: 13px;
-  opacity: 0;
-  border-radius: 1px;
-  animation: confettiFall 3.4s ease-in forwards;
-}
-
-@keyframes confettiFall {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(72vh) rotate(340deg);
-    opacity: 0;
-  }
-}
-
-.confetti span:nth-child(1)  { left: 6%;  background: var(--red-signal); animation-delay: .10s; }
-.confetti span:nth-child(2)  { left: 14%; background: var(--white); animation-delay: .50s; }
-.confetti span:nth-child(3)  { left: 22%; background: var(--grey-warm); animation-delay: .15s; }
-.confetti span:nth-child(4)  { left: 30%; background: var(--white); animation-delay: .65s; }
-.confetti span:nth-child(5)  { left: 38%; background: var(--red-signal); animation-delay: .30s; }
-.confetti span:nth-child(6)  { left: 46%; background: var(--white); animation-delay: .05s; }
-.confetti span:nth-child(7)  { left: 54%; background: var(--grey-warm); animation-delay: .45s; }
-.confetti span:nth-child(8)  { left: 62%; background: var(--white); animation-delay: .20s; }
-.confetti span:nth-child(9)  { left: 70%; background: var(--red-signal); animation-delay: .55s; }
-.confetti span:nth-child(10) { left: 78%; background: var(--white); animation-delay: .35s; }
-.confetti span:nth-child(11) { left: 86%; background: var(--grey-warm); animation-delay: .10s; }
-.confetti span:nth-child(12) { left: 94%; background: var(--white); animation-delay: .50s; }
-.confetti span:nth-child(13) { left: 50%; background: var(--red-signal); animation-delay: .60s; }
-.confetti span:nth-child(14) { left: 18%; background: var(--white); animation-delay: .40s; }
-
-/* Main layout */
-
-.stage {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: 43vh 24px 44px;
-  text-align: center;
-}
-
-.subcopy {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--gold-light);
-  max-width: 420px;
-  margin: 0 auto;
-  animation: rise .8s ease both;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Search card */
-
-.card {
-  position: relative;
-  z-index: 1;
-  background: var(--white);
-  border-radius: 18px;
-  padding: 34px 30px;
-  margin: 28px auto 0;
-  max-width: 400px;
-  text-align: center;
-  box-shadow: 0 24px 55px rgba(15,3,8,.5);
-  animation: rise .9s .3s ease both;
-}
-
-.badge {
-  position: absolute;
-  top: -18px;
-  right: -14px;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--red-signal);
-  border: 2px solid rgba(227,181,79,.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.3);
-  animation: badgeIn .5s .8s cubic-bezier(.34,1.56,.64,1) both;
-}
-
-@keyframes badgeIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Input */
-
-.input-wrap {
-  padding: 2px;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  background: linear-gradient(
-    135deg,
-    var(--gold-deep),
-    var(--gold-light),
-    var(--gold-deep)
-  );
-}
-
-input {
-  display: block;
-  width: 100%;
-  padding: 14px 16px;
-  font-size: 16px;
-  font-family: var(--font-body);
-  color: var(--ink);
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  text-align: center;
-  background: #FFFAF0;
-  transition: box-shadow .2s ease;
-}
-
-input:focus {
-  box-shadow: 0 0 0 4px rgba(212,175,55,.28);
-}
-
-input::placeholder {
-  color: #A68A5B;
-}
-
-/* Button */
-
-button {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid rgba(227,181,79,.55);
-  border-radius: 10px;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--maroon-deep), #8A1B2E);
-  color: var(--gold-light);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: .03em;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(110,20,35,.35);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-button:disabled {
-  opacity: .6;
-  cursor: wait;
-  transform: none;
-  box-shadow: none;
-}
-
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--red-signal);
-  outline-offset: 2px;
-}
-
-/* Loading state */
-
-.loader {
-  display: none;
-  margin-top: 16px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--grey-warm);
-}
-
-.loader.show {
-  display: flex;
-}
-
-.spinner {
-  width: 14px;
-  height: 14px;
-  border: 2px solid rgba(110,20,35,.18);
-  border-top-color: var(--maroon-deep);
-  border-radius: 50%;
-  display: inline-block;
-  animation: spin .8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Response message */
-
-#msg {
-  margin-top: 14px;
-  text-align: center;
-  font-weight: 600;
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.success {
-  color: var(--success);
-}
-
-.error {
-  color: var(--red-error);
-}
-
-#msg a {
-  display: inline-block;
-  margin-top: 8px;
-  color: var(--maroon-deep);
-  text-decoration: underline;
-  overflow-wrap: anywhere;
-}
-
-/* Footer */
-
-.footer-note {
-  margin-top: 22px;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--gold-light);
-  animation: rise .9s .45s ease both;
-}
-
-/* Responsive */
-
-@media (max-width: 480px) {
-  .stage {
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-bottom: 32px;
-  }
-
-  .card {
-    padding: 28px 22px;
-  }
-
-  .badge {
-    right: -8px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important;
-  }
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
 }
 </style>
 </head>
-
 <body>
 
-<!-- Background image -->
 <div class="bg-photo" aria-hidden="true">
-  <img
-    src="https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png"
-    alt=""
-  >
+  <img src="https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png" alt="">
   <div class="bg-overlay"></div>
 </div>
 
-<!-- Confetti -->
 <div class="confetti" aria-hidden="true">
-  <span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span>
-  <span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
 
-<!-- Main content -->
 <main class="stage">
-
-  <p class="subcopy">
-    Enter your details below to view your personalised experience
-  </p>
+  <p class="subcopy">Enter your details below to view your personalised experience</p>
 
   <section class="card">
     <span class="badge" aria-hidden="true">🎉</span>
 
-    <form id="lookupForm">
-      <div class="input-wrap">
-        <input
-          id="input"
-          type="text"
-          placeholder="Employee ID / Mobile Number"
-          autocomplete="off"
-          aria-label="Employee ID or Mobile Number"
-          required
-        >
-      </div>
-
-      <button type="submit" id="btn">
-        Click to view &amp; download!
-      </button>
-    </form>
-
-    <div class="loader" id="loader" role="status" aria-live="polite">
-      <span class="spinner"></span>
-      <span>Searching your details...</span>
+    <div class="input-wrap">
+      <input
+        id="input"
+        placeholder="Advisor code / SAP ID / Mobile No."
+        autocomplete="off"
+      >
     </div>
+    <button onclick="searchDoc()" id="btn">Click to view & download!</button>
 
-    <div id="msg" role="status" aria-live="polite"></div>
+    <div class="loader" id="loader"><span class="spinner"></span><span>Searching...</span></div>
+    <div id="msg"></div>
   </section>
 
-  <p class="footer-note">
-    🎉 Have a safe and wonderful trip!
-  </p>
-
+  <p class="footer-note">🎉 Have a safe and wonderful trip!</p>
 </main>
 
 <script>
-"use strict";
+const API_URL="https://script.google.com/macros/s/AKfycbwVFXGXwlBGDM5Ke1z519CYikfeuKCmNvgO-c87vUsl8zcLYn5QIBiByure-wXaNPvG/exec";
 
-/*
- * IMPORTANT:
- * Use the deployed Google Apps Script Web App URL ending in /exec.
- * The Apps Script must support the callback parameter (JSONP).
- */
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbza_Nd0aJAwIrG2Ebrw-ziqch5LdaQDhU4hC7WwbzncsrjLT15dSelZAxDKfbbQadAq/exec";
-
-const form = document.getElementById("lookupForm");
-const input = document.getElementById("input");
-const msg = document.getElementById("msg");
-const loader = document.getElementById("loader");
-const btn = document.getElementById("btn");
-
-let activeRequest = null;
-let requestCounter = 0;
-
-function setMessage(message, type) {
-  msg.replaceChildren();
-  msg.className = type || "";
-  msg.textContent = message || "";
-}
-
-function setLoading(isLoading) {
-  loader.classList.toggle("show", isLoading);
-  btn.disabled = isLoading;
-  btn.textContent = isLoading
-    ? "Searching..."
-    : "Click to view & download!";
-}
-
-function showDocumentLink(url) {
-  let parsedUrl;
-
-  try {
-    parsedUrl = new URL(url);
-
-    if (parsedUrl.protocol !== "https:") {
-      throw new Error("Invalid protocol");
-    }
-  } catch (error) {
-    setMessage("The document link is invalid. Please contact support.", "error");
+async function searchDoc(){
+  const value=document.getElementById("input").value.trim();
+  const msg=document.getElementById("msg");
+  const loader=document.getElementById("loader");
+  const btn=document.getElementById("btn");
+  msg.innerHTML="";
+  if(value===""){
+    msg.className="error";
+    msg.innerHTML="Please enter your L1 code, Employee ID or Mobile Number.";
     return;
   }
-
-  setMessage("Record found! If the document does not open, use the link below.", "success");
-
-  const link = document.createElement("a");
-  link.href = parsedUrl.href;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.textContent = "Open your document";
-
-  msg.appendChild(document.createElement("br"));
-  msg.appendChild(link);
-
-  /*
-   * The new tab is opened directly after the user submits the form.
-   * Some browsers may block automatic tabs; the visible link above
-   * remains available as a fallback.
-   */
-  const opened = window.open(parsedUrl.href, "_blank", "noopener,noreferrer");
-
-  if (!opened) {
-    setMessage("Your document is ready. Click below to open it.", "success");
-    msg.appendChild(document.createElement("br"));
-    msg.appendChild(link);
-  }
-}
-
-function cleanupRequest(request) {
-  if (!request || request.finished) return;
-
-  request.finished = true;
-  clearTimeout(request.timer);
-
-  if (request.script) {
-    request.script.onerror = null;
-    request.script.remove();
-  }
-
-  if (window[request.callbackName]) {
-    delete window[request.callbackName];
-  }
-
-  if (activeRequest === request) {
-    activeRequest = null;
-    setLoading(false);
-  }
-}
-
-function searchDoc(value) {
-  if (activeRequest) {
-    cleanupRequest(activeRequest);
-  }
-
-  setMessage("", "");
-
-  if (!value) {
-    setMessage(
-      "Please enter your Employee ID or Mobile Number.",
-      "error"
-    );
-    input.focus();
-    return;
-  }
-
-  setLoading(true);
-
-  const callbackName = "sheetCallback_" + (++requestCounter);
-  const script = document.createElement("script");
-
-  const request = {
-    callbackName: callbackName,
-    script: script,
-    timer: null,
-    finished: false
-  };
-
-  activeRequest = request;
-
-  window[callbackName] = function(data) {
-    if (request.finished) return;
-
-    cleanupRequest(request);
-
-    if (data && data.status === "success" && data.url) {
-      showDocumentLink(data.url);
-      return;
+  loader.classList.add("show");
+  btn.disabled=true;
+  try{
+    const response=await fetch(API_URL+"?input="+encodeURIComponent(value));
+    const data=await response.json();
+    loader.classList.remove("show");
+    btn.disabled=false;
+    if(data.status==="success"){
+      msg.className="success";
+      msg.innerHTML="Agenda found! Downloading...";
+      window.open(data.url,"_blank");
+    }else{
+      msg.className="error";
+      msg.innerHTML=data.message;
     }
-
-    setMessage(
-      data && data.message
-        ? data.message
-        : "No matching record found. Please check your details.",
-      "error"
-    );
-  };
-
-  script.onerror = function() {
-    if (request.finished) return;
-
-    cleanupRequest(request);
-
-    setMessage(
-      "Unable to connect to the server. Check the Apps Script deployment and try again.",
-      "error"
-    );
-  };
-
-  const params = new URLSearchParams({
-    input: value,
-    callback: callbackName,
-    _: String(Date.now())
-  });
-
-  script.src = API_URL + "?" + params.toString();
-
-  request.timer = setTimeout(function() {
-    if (request.finished) return;
-
-    cleanupRequest(request);
-
-    setMessage(
-      "The request timed out. Please try again.",
-      "error"
-    );
-  }, 20000);
-
-  document.head.appendChild(script);
+  }catch(err){
+    loader.classList.remove("show");
+    btn.disabled=false;
+    msg.className="error";
+    msg.innerHTML="Unable to connect to server.";
+  }
 }
-
-form.addEventListener("submit", function(event) {
-  event.preventDefault();
-  searchDoc(input.value.trim());
-});
 </script>
-
 </body>
 </html>
