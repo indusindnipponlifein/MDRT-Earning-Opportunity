@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --maroon:#6E1423;
@@ -21,101 +23,251 @@
   --font-display:'Instrument Serif', Georgia, serif;
   --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
 }
+
 *{margin:0;padding:0;box-sizing:border-box;}
+
 html,body{height:100%;}
+
 body{
-  position:relative;min-height:100vh;overflow-x:hidden;
-  font-family:var(--font-body);color:var(--grey);
+  position:relative;
+  min-height:100vh;
+  overflow-x:hidden;
+  font-family:var(--font-body);
+  color:var(--grey);
   background:var(--maroon-deep);
 }
 
-/* ---------- Background image ----------
-   Replace the src of the <img> below with your own image.
-   It fills the screen (cover) and is softened by a maroon scrim so the card always reads clearly. */
-.bg-photo{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(160deg,var(--maroon) 0%,var(--maroon-deep) 100%);}
-.bg-photo img{width:100%;height:100%;object-fit:contain;object-position:center top;display:block;}
+/* Background image - unchanged */
+.bg-photo{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  background:linear-gradient(160deg,var(--maroon) 0%,var(--maroon-deep) 100%);
+}
+
+.bg-photo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center top;
+  display:block;
+}
+
 .bg-overlay{
-  position:absolute;inset:0;
+  position:absolute;
+  inset:0;
   background:
     linear-gradient(180deg, rgba(74,15,28,0) 0%, rgba(74,15,28,0) 55%, rgba(35,8,17,.35) 100%);
 }
 
-/* ---------- Layout ---------- */
+/* Layout - card remains fixed */
 .stage{
-  position:relative;z-index:2;min-height:100vh;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding:0 20px 7vh;
+  position:relative;
+  z-index:2;
+  min-height:100vh;
 }
+
+/* Form card - fixed at the bottom */
 .card{
-  position:relative;width:100%;max-width:420px;
+  position:fixed;
+  z-index:2;
+  left:50%;
+  bottom:7vh;
+  transform:translateX(-50%);
+  width:calc(100% - 40px);
+  max-width:420px;
   background:rgba(255,255,255,.96);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  border-radius:14px;overflow:hidden;
-  padding:36px 30px 30px;text-align:center;
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+  border-radius:14px;
+  overflow:hidden;
+  padding:36px 30px 30px;
+  text-align:center;
   box-shadow:0 22px 50px rgba(20,4,9,.35);
   animation:rise .7s ease both;
 }
-.card::before{ /* thin brand bar */
-  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:4px;
   background:linear-gradient(90deg,var(--maroon) 0%,var(--maroon) 70%,var(--red) 100%);
 }
-@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
+@keyframes rise{
+  from{opacity:0;transform:translate(-50%,14px);}
+  to{opacity:1;transform:translate(-50%,0);}
+}
 
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
-.subcopy{font-size:15px;line-height:1.55;color:var(--grey);max-width:320px;margin:0 auto 20px;}
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+}
 
-/* ---------- Form ---------- */
-.input-wrap{margin-bottom:14px;}
+.subcopy{
+  font-size:15px;
+  line-height:1.55;
+  color:var(--grey);
+  max-width:320px;
+  margin:0 auto 20px;
+}
+
+/* Form */
+.input-wrap{
+  margin-bottom:14px;
+}
+
 input{
-  display:block;width:100%;padding:14px 16px;font-size:16px;font-family:var(--font-body);color:var(--maroon-deep);
-  background:#FAF8F8;border:1px solid var(--line);border-radius:8px;outline:none;text-align:center;
+  display:block;
+  width:100%;
+  padding:14px 16px;
+  font-size:16px;
+  font-family:var(--font-body);
+  color:var(--maroon-deep);
+  background:#FAF8F8;
+  border:1px solid var(--line);
+  border-radius:8px;
+  outline:none;
+  text-align:center;
   transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
-input::placeholder{color:var(--grey-soft);}
-input:focus{border-color:var(--maroon);background:#fff;box-shadow:0 0 0 3px rgba(110,20,35,.12);}
+
+input::placeholder{
+  color:var(--grey-soft);
+}
+
+input:focus{
+  border-color:var(--maroon);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(110,20,35,.12);
+}
 
 button{
-  width:100%;padding:14px;border:none;border-radius:8px;cursor:pointer;
-  background:var(--maroon);color:#fff;
-  font-family:var(--font-body);font-weight:600;font-size:16px;letter-spacing:.02em;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:var(--maroon);
+  color:#fff;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:16px;
+  letter-spacing:.02em;
   transition:background .2s ease, transform .2s ease;
 }
-button:hover{background:var(--red);}
-button:active{transform:translateY(1px);}
-button:disabled{opacity:.6;cursor:not-allowed;background:var(--maroon);}
-button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
+
+button:hover{
+  background:var(--red);
+}
+
+button:active{
+  transform:translateY(1px);
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  background:var(--maroon);
+}
+
+button:focus-visible,
+input:focus-visible{
+  outline:2px solid var(--red);
+  outline-offset:2px;
+}
 
 .loader{
-  display:none;margin-top:16px;align-items:center;justify-content:center;gap:8px;
-  font-size:14px;color:var(--grey);
+  display:none;
+  margin-top:16px;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:14px;
+  color:var(--grey);
 }
-.loader.show{display:flex;}
+
+.loader.show{
+  display:flex;
+}
+
 .spinner{
-  width:14px;height:14px;border:2px solid rgba(110,20,35,.18);border-top-color:var(--maroon);
-  border-radius:50%;display:inline-block;animation:spin .8s linear infinite;
+  width:14px;
+  height:14px;
+  border:2px solid rgba(110,20,35,.18);
+  border-top-color:var(--maroon);
+  border-radius:50%;
+  display:inline-block;
+  animation:spin .8s linear infinite;
 }
-@keyframes spin{to{transform:rotate(360deg);}}
 
-#msg{margin-top:14px;text-align:center;font-weight:500;font-size:15px;}
-#msg:empty{margin-top:0;}
-.success{color:var(--success);}
-.error{color:var(--red-error);}
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
 
+#msg{
+  margin-top:14px;
+  text-align:center;
+  font-weight:500;
+  font-size:15px;
+}
+
+#msg:empty{
+  margin-top:0;
+}
+
+.success{
+  color:var(--success);
+}
+
+.error{
+  color:var(--red-error);
+}
 
 @media (max-width:480px){
-  .stage{padding:0 14px 5vh;}
-  .card{padding:30px 22px 22px;}
+  .card{
+    width:calc(100% - 28px);
+    bottom:5vh;
+    padding:30px 22px 22px;
   }
+}
+
+/* Prevent the card from extending beyond short screens */
+@media (max-height:500px){
+  .card{
+    bottom:10px;
+    max-height:calc(100vh - 20px);
+    overflow-y:auto;
+    padding-top:26px;
+    padding-bottom:20px;
+  }
+
+  .subcopy{
+    margin-bottom:12px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
-  *, *::before, *::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  *, *::before, *::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <div class="bg-photo" aria-hidden="true">
-  <!-- Replace this src with your background image -->
   <img src="https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png" alt="">
   <div class="bg-overlay"></div>
 </div>
@@ -124,7 +276,10 @@ button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-o
   <section class="card">
 
     <h1 class="sr-only">MDRT Earning Opportunity</h1>
-    <p class="subcopy">Enter your details below to view your personalised experience</p>
+
+    <p class="subcopy">
+      Enter your details below to view your personalised experience
+    </p>
 
     <div class="input-wrap">
       <input
@@ -133,9 +288,16 @@ button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-o
         autocomplete="off"
       >
     </div>
-    <button onclick="searchDoc()" id="btn">Click to view & download!</button>
 
-    <div class="loader" id="loader"><span class="spinner"></span><span>Searching...</span></div>
+    <button onclick="searchDoc()" id="btn">
+      Click to view &amp; download!
+    </button>
+
+    <div class="loader" id="loader">
+      <span class="spinner"></span>
+      <span>Searching...</span>
+    </div>
+
     <div id="msg"></div>
 
   </section>
@@ -178,5 +340,6 @@ async function searchDoc(){
   }
 }
 </script>
+
 </body>
 </html>
