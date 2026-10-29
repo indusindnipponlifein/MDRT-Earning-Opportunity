@@ -1,660 +1,145 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#6E1423">
 <title>MDRT Earning Opportunity</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
-:root {
-  --maroon: #6E1423;
-  --maroon-dark: #390B15;
-  --red: #B72D3B;
-  --white: #FFFFFF;
-  --grey: #77716F;
-  --grey-light: #E8E5E3;
-  --background: #F4F2F0;
-  --ink: #292326;
-  --muted: #777176;
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'IBM Plex Sans', Arial, sans-serif;
+:root{
+  --maroon:#6E1423;
+  --maroon-deep:#4A0F1C;
+  --red:#C8323F;
+  --red-error:#A11A2B;
+  --grey:#5B534F;
+  --grey-soft:#8C8582;
+  --line:#E4DFDD;
+  --paper:#FFFFFF;
+  --success:#2A7F5F;
+  --font-display:'Instrument Serif', Georgia, serif;
+  --font-body:'IBM Plex Sans', -apple-system, 'Segoe UI', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  position:relative;min-height:100vh;overflow-x:hidden;
+  font-family:var(--font-body);color:var(--grey);
+  background:var(--maroon-deep);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  min-height: 100%;
-}
-
-body {
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: var(--font-body);
-  color: var(--ink);
-  background: var(--background);
-}
-
-/* Subtle corporate background */
-.page-background {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
+/* ---------- Background image ----------
+   Replace the src of the <img> below with your own image.
+   It fills the screen (cover) and is softened by a maroon scrim so the card always reads clearly. */
+.bg-photo{position:fixed;inset:0;z-index:0;overflow:hidden;background:linear-gradient(160deg,var(--maroon) 0%,var(--maroon-deep) 100%);}
+.bg-photo img{width:100%;height:100%;object-fit:contain;object-position:center top;display:block;}
+.bg-overlay{
+  position:absolute;inset:0;
   background:
-    radial-gradient(ellipse at 12% 12%, rgba(110,20,35,.07), transparent 38%),
-    radial-gradient(ellipse at 90% 85%, rgba(110,20,35,.055), transparent 35%),
-    var(--background);
+    linear-gradient(180deg, rgba(74,15,28,0) 0%, rgba(74,15,28,0) 55%, rgba(35,8,17,.35) 100%);
 }
 
-.page-background::before {
-  content: "";
-  position: absolute;
-  top: -170px;
-  right: -140px;
-  width: 430px;
-  height: 430px;
-  border: 1px solid rgba(110,20,35,.09);
-  border-radius: 50%;
+/* ---------- Layout ---------- */
+.stage{
+  position:relative;z-index:2;min-height:100vh;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:0 20px 7vh;
 }
-
-.page-background::after {
-  content: "";
-  position: absolute;
-  top: -110px;
-  right: -80px;
-  width: 310px;
-  height: 310px;
-  border: 1px solid rgba(110,20,35,.07);
-  border-radius: 50%;
+.card{
+  position:relative;width:100%;max-width:420px;
+  background:rgba(255,255,255,.96);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-radius:14px;overflow:hidden;
+  padding:36px 30px 30px;text-align:center;
+  box-shadow:0 22px 50px rgba(20,4,9,.35);
+  animation:rise .7s ease both;
 }
-
-/* Main layout */
-.page-shell {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.card::before{ /* thin brand bar */
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--maroon) 0%,var(--maroon) 70%,var(--red) 100%);
 }
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* Header */
-.topbar {
-  min-height: 76px;
-  padding: 18px 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-bottom: 1px solid rgba(60,20,28,.09);
-  background: rgba(255,255,255,.82);
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.subcopy{font-size:15px;line-height:1.55;color:var(--grey);max-width:320px;margin:0 auto 20px;}
+
+/* ---------- Form ---------- */
+.input-wrap{margin-bottom:14px;}
+input{
+  display:block;width:100%;padding:14px 16px;font-size:16px;font-family:var(--font-body);color:var(--maroon-deep);
+  background:#FAF8F8;border:1px solid var(--line);border-radius:8px;outline:none;text-align:center;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
+input::placeholder{color:var(--grey-soft);}
+input:focus{border-color:var(--maroon);background:#fff;box-shadow:0 0 0 3px rgba(110,20,35,.12);}
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+button{
+  width:100%;padding:14px;border:none;border-radius:8px;cursor:pointer;
+  background:var(--maroon);color:#fff;
+  font-family:var(--font-body);font-weight:600;font-size:16px;letter-spacing:.02em;
+  transition:background .2s ease, transform .2s ease;
 }
+button:hover{background:var(--red);}
+button:active{transform:translateY(1px);}
+button:disabled{opacity:.6;cursor:not-allowed;background:var(--maroon);}
+button:focus-visible, input:focus-visible{outline:2px solid var(--red);outline-offset:2px;}
 
-.brand-mark {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  color: white;
-  background: var(--maroon);
-  border-radius: 5px;
-  font-family: var(--font-display);
-  font-size: 25px;
-  line-height: 1;
+.loader{
+  display:none;margin-top:16px;align-items:center;justify-content:center;gap:8px;
+  font-size:14px;color:var(--grey);
 }
-
-.brand-name {
-  color: var(--maroon-dark);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: .09em;
+.loader.show{display:flex;}
+.spinner{
+  width:14px;height:14px;border:2px solid rgba(110,20,35,.18);border-top-color:var(--maroon);
+  border-radius:50%;display:inline-block;animation:spin .8s linear infinite;
 }
+@keyframes spin{to{transform:rotate(360deg);}}
 
-.brand-caption {
-  margin-top: 3px;
-  color: var(--grey);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-}
+#msg{margin-top:14px;text-align:center;font-weight:500;font-size:15px;}
+#msg:empty{margin-top:0;}
+.success{color:var(--success);}
+.error{color:var(--red-error);}
 
-.header-label {
-  color: var(--grey);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
 
-/* Main content */
-.main-content {
-  flex: 1;
-  width: 100%;
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 70px 24px 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Opportunity heading */
-.hero {
-  width: 100%;
-  max-width: 650px;
-  text-align: center;
-  animation: rise .7s ease both;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  color: var(--red);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-}
-
-.eyebrow::before,
-.eyebrow::after {
-  content: "";
-  width: 25px;
-  height: 1px;
-  background: var(--red);
-  opacity: .65;
-}
-
-.hero h1 {
-  color: var(--maroon-dark);
-  font-family: var(--font-display);
-  font-size: clamp(43px, 6vw, 65px);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -.025em;
-}
-
-.hero h1 span {
-  color: var(--maroon);
-}
-
-.hero-description {
-  max-width: 430px;
-  margin: 17px auto 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-/* Subtle award motif */
-.achievement-mark {
-  width: 54px;
-  height: 54px;
-  margin: 27px auto 0;
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-
-.achievement-mark::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border: 1px solid rgba(110,20,35,.28);
-  border-radius: 50%;
-}
-
-.achievement-mark svg {
-  width: 27px;
-  height: 27px;
-  color: var(--maroon);
-}
-
-/* Search card */
-.card {
-  position: relative;
-  width: 100%;
-  max-width: 430px;
-  margin-top: 28px;
-  padding: 32px;
-  overflow: visible;
-  background: var(--white);
-  border: 1px solid rgba(66,26,34,.09);
-  border-radius: 8px;
-  box-shadow: 0 16px 45px rgba(42,19,24,.075);
-  animation: rise .8s .12s ease both;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 32px;
-  right: 32px;
-  height: 3px;
-  border-radius: 0 0 3px 3px;
-  background: linear-gradient(90deg, var(--maroon), var(--red), #D9A5AA);
-}
-
-.card-heading {
-  margin-bottom: 7px;
-  color: var(--maroon-dark);
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.card-description {
-  margin-bottom: 24px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.7;
-  text-align: center;
-}
-
-/* Input */
-.input-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #4C4245;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.input-wrap {
-  position: relative;
-  margin-bottom: 15px;
-}
-
-.input-wrap svg {
-  position: absolute;
-  top: 50%;
-  left: 14px;
-  width: 18px;
-  height: 18px;
-  color: #8C7E82;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-input {
-  display: block;
-  width: 100%;
-  min-height: 49px;
-  padding: 13px 14px 13px 42px;
-  border: 1px solid #DDD6D7;
-  border-radius: 5px;
-  outline: none;
-  background: #FCFBFB;
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 14px;
-  transition: border-color .2s, box-shadow .2s, background .2s;
-}
-
-input::placeholder {
-  color: #A59DA0;
-}
-
-input:focus {
-  border-color: var(--maroon);
-  background: var(--white);
-  box-shadow: 0 0 0 3px rgba(110,20,35,.08);
-}
-
-/* Button */
-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 49px;
-  padding: 13px 16px;
-  border: 1px solid var(--maroon);
-  border-radius: 5px;
-  background: var(--maroon);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .015em;
-  cursor: pointer;
-  transition: background .2s, box-shadow .2s, transform .2s;
-}
-
-button:hover {
-  background: #851D30;
-  box-shadow: 0 5px 14px rgba(110,20,35,.15);
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-button:disabled {
-  opacity: .65;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-button svg {
-  width: 17px;
-  height: 17px;
-}
-
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--red);
-  outline-offset: 3px;
-}
-
-/* Loading and response messages */
-.loader {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  margin-top: 17px;
-  color: var(--grey);
-  font-size: 12px;
-}
-
-.loader.show {
-  display: flex;
-}
-
-.spinner {
-  width: 15px;
-  height: 15px;
-  border: 2px solid #E9DDE0;
-  border-top-color: var(--maroon);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-
-#msg {
-  margin-top: 15px;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-.success {
-  color: #24734D;
-}
-
-.error {
-  color: #A11A2B;
-}
-
-/* Privacy / input guidance */
-.card-note {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 7px;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #F0ECEC;
-  color: #82797C;
-  font-size: 11px;
-  line-height: 1.6;
-  text-align: center;
-}
-
-.card-note svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* Footer */
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 66px;
-  padding: 18px 24px;
-  border-top: 1px solid rgba(60,20,28,.09);
-  background: rgba(255,255,255,.55);
-  color: #777074;
-  font-size: 11px;
-  text-align: center;
-}
-
-.footer-accent {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--red);
-}
-
-/* Motion */
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
+@media (max-width:480px){
+  .stage{padding:0 14px 5vh;}
+  .card{padding:30px 22px 22px;}
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@media (max-width: 600px) {
-  .topbar {
-    min-height: 67px;
-    padding: 14px 20px;
-  }
-
-  .brand-mark {
-    width: 34px;
-    height: 34px;
-  }
-
-  .brand-name {
-    font-size: 12px;
-  }
-
-  .brand-caption {
-    font-size: 9px;
-  }
-
-  .header-label {
-    max-width: 100px;
-    font-size: 9px;
-    text-align: right;
-    line-height: 1.5;
-  }
-
-  .main-content {
-    padding: 55px 20px 42px;
-  }
-
-  .hero h1 {
-    font-size: clamp(42px, 11vw, 56px);
-  }
-
-  .hero-description {
-    max-width: 320px;
-    font-size: 13px;
-  }
-
-  .card {
-    margin-top: 25px;
-    padding: 28px 22px;
-  }
-
-  .card::before {
-    left: 22px;
-    right: 22px;
-  }
-
-  .page-background::before {
-    width: 300px;
-    height: 300px;
-  }
-
-  .page-background::after {
-    width: 220px;
-    height: 220px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important;
-  }
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
 }
 </style>
 </head>
-
 <body>
 
-<div class="page-background" aria-hidden="true"></div>
-
-<div class="page-shell">
-
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-mark" aria-hidden="true">M</div>
-      <div>
-        <div class="brand-name">MDRT</div>
-        <div class="brand-caption">Achievement &amp; Excellence</div>
-      </div>
-    </div>
-
-    <div class="header-label">A World of Opportunity</div>
-  </header>
-
-  <main class="main-content">
-
-    <section class="hero">
-      <div class="eyebrow">Your Next Milestone</div>
-
-      <h1>
-        MDRT <span>Earning</span><br>
-        Opportunity
-      </h1>
-
-      <p class="hero-description">
-        Your achievement deserves recognition.
-        Enter your details below to access your personalised opportunity.
-      </p>
-
-      <div class="achievement-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.4"
-             stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="5.5"/>
-          <path d="M8.5 12.2 6.5 22l5.5-3 5.5 3-2-9.8"/>
-          <path d="m12 4.8 1 2 2.2.3-1.6 1.6.4 2.2-2-1-2 1 .4-2.2-1.6-1.6 2.2-.3z"/>
-        </svg>
-      </div>
-    </section>
-
-    <section class="card" aria-label="Access your opportunity">
-
-      <h2 class="card-heading">Access Your Details</h2>
-      <p class="card-description">
-        Enter your registered details to view and download your document.
-      </p>
-
-      <label class="input-label" for="input">
-        Advisor Code / Employee ID / Mobile Number
-      </label>
-
-      <div class="input-wrap">
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.7"
-             stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true">
-          <circle cx="12" cy="8" r="4"/>
-          <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
-        </svg>
-
-        <input
-          id="input"
-          placeholder="Enter your details"
-          autocomplete="off"
-        >
-      </div>
-
-      <button onclick="searchDoc()" id="btn">
-        <span>View &amp; Download</span>
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.8"
-             stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true">
-          <path d="M7 17 17 7"/>
-          <path d="M7 7h10v10"/>
-        </svg>
-      </button>
-
-      <div class="loader" id="loader">
-        <span class="spinner"></span>
-        <span>Searching your details...</span>
-      </div>
-
-      <div id="msg" role="status" aria-live="polite"></div>
-
-      <div class="card-note">
-        <svg viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="1.7"
-             stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true">
-          <rect x="4" y="10" width="16" height="11" rx="2"/>
-          <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-          <path d="M12 14v3"/>
-        </svg>
-        <span>Please use the details registered with your organisation.</span>
-      </div>
-
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <span class="footer-accent"></span>
-    <span>Recognising achievement. Inspiring excellence.</span>
-    <span class="footer-accent"></span>
-  </footer>
-
+<div class="bg-photo" aria-hidden="true">
+  <!-- Replace this src with your background image -->
+  <img src="https://d2bja440mdt72x.cloudfront.net/thailand-letters/PPTapotrait.png" alt="">
+  <div class="bg-overlay"></div>
 </div>
+
+<main class="stage">
+  <section class="card">
+
+    <h1 class="sr-only">MDRT Earning Opportunity</h1>
+    <p class="subcopy">Enter your details below to view your personalised experience</p>
+
+    <div class="input-wrap">
+      <input
+        id="input"
+        placeholder="Advisor code / SAP ID / Mobile No."
+        autocomplete="off"
+      >
+    </div>
+    <button onclick="searchDoc()" id="btn">Click to view & download!</button>
+
+    <div class="loader" id="loader"><span class="spinner"></span><span>Searching...</span></div>
+    <div id="msg"></div>
+
+  </section>
+</main>
 
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbyq1Yuh4HqzN_PCKePsK4_az1IXYAzkt56rTv8TXun6Y_Dv1kJAl2_8J2wGqQKdNnqj/exec";
@@ -693,6 +178,5 @@ async function searchDoc(){
   }
 }
 </script>
-
 </body>
 </html>
