@@ -278,7 +278,7 @@ input:focus-visible{
     <h1 class="sr-only">MDRT Earning Opportunity</h1>
 
     <p class="subcopy">
-      Enter your details below to view your document
+      Enter your details below to view your earning opportunity document
     </p>
 
     <div class="input-wrap">
@@ -326,7 +326,7 @@ async function searchDoc(){
     btn.disabled=false;
     if(data.status==="success"){
       msg.className="success";
-      msg.innerHTML="Earning Opportunity found!";
+      msg.innerHTML="Document found!";
       window.open(data.url,"_blank");
     }else{
       msg.className="error";
